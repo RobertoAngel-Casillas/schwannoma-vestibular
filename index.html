@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schwannomas vestibulares · Material suplementario</title>
+<meta name="description" content="Material suplementario del póster sobre fisiopatología, presentación clínica y abordaje quirúrgico de los schwannomas vestibulares.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&family=IBM+Plex+Mono&display=swap">
+<style>
+  /* ===== Colores y tipografía: cambia aquí para todo el sitio ===== */
+  :root {
+    --azul: #1B2A3A;
+    --acento: #0BA3B2;
+    --acento-oscuro: #08707A;
+    --acento-claro: #7FD6DE;
+    --tinte: #E7F6F7;
+    --suave: #F4F7F9;
+    --gris: #4A5568;
+    --linea: #D5DDE5;
+    --ancho: 980px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: Montserrat, Arial, sans-serif; color: var(--azul); background: #fff; line-height: 1.6; font-size: 16px; }
+  a { color: var(--acento-oscuro); }
+  .contenedor { max-width: var(--ancho); margin: 0 auto; padding: 0 20px; }
+
+  header { background: var(--azul); color: #fff; padding: 40px 0 32px; }
+  header .etiqueta { color: var(--acento-claro); font-weight: 700; letter-spacing: 2px; font-size: 13px; text-transform: uppercase; }
+  header h1 { margin: 10px 0 12px; font-size: clamp(24px, 5vw, 38px); line-height: 1.15; font-weight: 800; }
+  header .sub { color: var(--acento-claro); font-weight: 600; margin: 0 0 18px; }
+  header .autores { font-weight: 700; margin: 0; }
+  header .afiliacion { color: #C9D3DE; font-size: 14px; margin: 4px 0 0; }
+
+  nav { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--linea); }
+  nav .contenedor { display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; }
+  nav a { flex: none; text-decoration: none; font-size: 14px; font-weight: 600; color: var(--azul); background: var(--suave); padding: 8px 14px; border-radius: 999px; }
+  nav a:hover { background: var(--tinte); }
+
+  section { padding: 40px 0 8px; scroll-margin-top: 60px; }
+  h2 { font-size: 26px; font-weight: 800; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 4px solid var(--acento); }
+  h3 { font-size: 18px; font-weight: 700; margin: 28px 0 10px; }
+  .mensaje { background: var(--tinte); border-left: 6px solid var(--acento); padding: 18px 20px; font-weight: 700; font-size: 18px; border-radius: 0 10px 10px 0; }
+
+  .tabla { width: 100%; overflow-x: auto; border: 1px solid var(--linea); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th { background: var(--azul); color: #fff; text-align: left; padding: 10px 12px; font-weight: 700; white-space: nowrap; }
+  td { padding: 8px 12px; border-top: 1px solid var(--linea); vertical-align: top; }
+  tbody tr:nth-child(odd) { background: var(--suave); }
+  td.id { font-weight: 700; white-space: nowrap; }
+
+  .pico { display: grid; grid-template-columns: 64px 1fr; gap: 10px 14px; align-items: center; }
+  .pico b { background: var(--azul); color: #fff; border-radius: 10px; text-align: center; padding: 10px 0; }
+
+  pre { font-family: 'IBM Plex Mono', monospace; font-size: 13px; background: var(--suave); border-left: 6px solid var(--acento); padding: 14px 16px; border-radius: 8px; white-space: pre-wrap; word-break: break-word; margin: 0; }
+  button { font: inherit; font-weight: 600; font-size: 14px; color: #fff; background: var(--acento-oscuro); border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; margin-top: 8px; }
+
+  .flujo { display: grid; gap: 10px; max-width: 560px; }
+  .paso { border: 2px solid var(--linea); border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+  .paso strong { font-size: 22px; }
+  .paso.final { background: var(--azul); color: #fff; border-color: var(--azul); }
+  .paso small { display: block; color: var(--gris); }
+  .paso.final small { color: var(--acento-claro); }
+
+  ol.refs { padding-left: 24px; }
+  ol.refs li, ul.refs li { overflow-wrap: anywhere; }
+  ol.refs li { margin-bottom: 10px; }
+  ul.refs { list-style: none; padding: 0; }
+  ul.refs li { margin-bottom: 10px; }
+
+  .buscador { width: 100%; font: inherit; padding: 10px 14px; border: 2px solid var(--linea); border-radius: 10px; margin: 6px 0 12px; }
+  .nota { color: var(--gris); font-size: 14px; }
+  /* En celular, las tablas largas se muestran como tarjetas */
+  @media (max-width: 680px) {
+    table.apilable, table.apilable tbody, table.apilable tr, table.apilable td { display: block; width: 100%; }
+    table.apilable thead { display: none; }
+    table.apilable tr { padding: 12px 14px; border-top: 1px solid var(--linea); }
+    table.apilable td { border: 0; padding: 2px 0; }
+    table.apilable td[data-label]::before { content: attr(data-label) ": "; font-weight: 600; color: var(--gris); }
+    table.apilable td.id { font-size: 16px; }
+  }
+  footer { margin-top: 48px; padding: 24px 0 40px; border-top: 4px solid var(--azul); color: var(--gris); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<!-- ===================== ENCABEZADO ===================== -->
+<header>
+  <div class="contenedor">
+    <div class="etiqueta">Material suplementario del póster</div>
+    <h1>Fisiopatología, presentación clínica y abordaje quirúrgico de los schwannomas vestibulares</h1>
+    <p class="sub">Revisión sistemática de revisiones sistemáticas y metaanálisis (2015–2025)</p>
+    <p class="autores">[Nombres de los autores]</p>
+    <p class="afiliacion">Licenciatura en Médico Cirujano · División de Ciencias de la Salud · Universidad de Guanajuato, Campus León · UDA de Sistema Nervioso</p>
+  </div>
+</header>
+
+<nav>
+  <div class="contenedor">
+    <a href="#resumen">Resumen</a>
+    <a href="#metodos">Métodos</a>
+    <a href="#revisiones">Revisiones incluidas</a>
+    <a href="#escalas">Escalas</a>
+    <a href="#registro">Registro de cribado</a>
+    <a href="#referencias">Referencias</a>
+  </div>
+</nav>
+
+<main class="contenedor">
+
+<!-- ===================== RESUMEN ===================== -->
+<section id="resumen">
+  <h2>Resumen</h2>
+  <p class="mensaje">Ningún abordaje es superior en todo: el tamaño del tumor y la audición útil deciden la vía, y dejar un remanente pequeño protege el nervio facial a cambio de más recurrencia.</p>
+  <ol>
+    <li><b>Ningún abordaje gana en todo.</b> La fosa media conserva mejor la audición en tumores intracanaliculares; el retrosigmoideo, en los que salen del conducto y miden menos de 3 cm; el translaberíntico logra más resección total sin más fístulas, pero sacrifica la audición.</li>
+    <li><b>La audición útil se conserva en 23–57% de los operados</b> y cae con el tamaño (57% → 12% con retrosigmoideo); si se conserva al inicio, se mantiene a largo plazo.</li>
+    <li><b>En tumores grandes, resecar menos protege el facial:</b> subtotal + radiocirugía logra House-Brackmann I–II en 85–96% con control de 80–94%, frente a 60% y 99.8% con resección total.</li>
+    <li><b>La certeza es baja</b> (estudios observacionales y heterogéneos): la vía depende del tumor, la audición, la edad y la experiencia del equipo.</li>
+  </ol>
+</section>
+
+<!-- ===================== MÉTODOS ===================== -->
+<section id="metodos">
+  <h2>Métodos</h2>
+  <p>Revisión sistemática de revisiones sistemáticas (<i>umbrella review</i>) según los manuales JBI y Cochrane, reportada con PRISMA 2020 [4,10,11].</p>
+
+  <h3>Pregunta (PICO)</h3>
+  <div class="pico">
+    <b>P</b><span>Adultos con schwannoma vestibular esporádico tratados con microcirugía.</span>
+    <b>I / C</b><span>Retrosigmoideo vs translaberíntico vs fosa media; resección total vs casi total o subtotal (± radiocirugía).</span>
+    <b>O</b><span>Función facial (House-Brackmann I–II), audición útil, fístula de LCR y recurrencia.</span>
+  </div>
+
+  <h3>Búsqueda</h3>
+  <p>PubMed/MEDLINE, 18 de noviembre de 2026; publicaciones de 2015 a 2025.</p>
+  <pre id="cadena">("Neuroma, Acoustic"[MeSH] OR "vestibular schwannoma"[tiab] OR "vestibular schwannomas"[tiab] OR "acoustic neuroma"[tiab]) AND (retrosigmoid[tiab] OR translabyrinthine[tiab] OR "middle fossa"[tiab] OR "middle cranial fossa"[tiab] OR microsurgery[tiab] OR microsurgical[tiab] OR "surgical approach"[tiab] OR "surgical approaches"[tiab] OR resection[tiab]) AND (systematic review[pt] OR meta-analysis[pt] OR "systematic review"[tiab] OR "meta-analysis"[tiab])</pre>
+  <button type="button" id="copiar">Copiar cadena</button>
+
+  <h3>Criterios</h3>
+  <p><b>Inclusión:</b> revisiones sistemáticas, con o sin metaanálisis, de adultos con schwannoma vestibular esporádico operados, que reporten función facial, audición, fístula de LCR, extensión de resección o recurrencia.</p>
+  <p><b>Exclusión:</b> cartas, comentarios, reportes o series de caso; guías y consensos; <i>NF2</i>, otros tumores, población pediátrica o tumores tratados previamente; solo radiocirugía u observación; rehabilitación, IA, imagen o monitoreo; desenlaces o técnicas fuera de la pregunta.</p>
+  <p><b>Selección y calidad:</b> cribado por título y resumen y a texto completo [dos revisores independientes, Rayyan [9]]; calidad con AMSTAR 2 [5] [pendiente].</p>
+
+  <h3>Selección de estudios (PRISMA 2020)</h3>
+  <!-- Cambia los números aquí si repiten el cribado -->
+  <div class="flujo">
+    <div class="paso"><span>Registros identificados en PubMed</span><strong>125</strong></div>
+    <div class="paso"><span>Cribados por título y resumen<small>1 eliminado antes del cribado (sin datos)</small></span><strong>124</strong></div>
+    <div class="paso"><span>Evaluados a texto completo<small>103 excluidos por título y resumen</small></span><strong>21</strong></div>
+    <div class="paso final"><span>Revisiones incluidas<small>3 excluidas a texto completo</small></span><strong>18</strong></div>
+  </div>
+  <p class="nota">Motivos de exclusión por título y resumen: población distinta 28; otra modalidad (radiocirugía u observación) 22; rehabilitación, IA, imagen o monitoreo 14; desenlace fuera de alcance 13; guía o consenso 10; no es revisión sistemática 9; otra técnica o abordaje 7.</p>
+</section>
+
+<!-- ===================== REVISIONES INCLUIDAS ===================== -->
+<section id="revisiones">
+  <h2>Revisiones incluidas (R1–R18)</h2>
+  <div class="tabla">
+    <table class="apilable">
+      <thead><tr><th>Revisión</th><th>Tema</th><th>Estudios / pacientes</th><th>Hallazgo principal</th></tr></thead>
+      <tbody id="tabla-revisiones"></tbody>
+    </table>
+  </div>
+  <p class="nota">RS: retrosigmoideo · TL: translaberíntico · FM: fosa media · HB: House-Brackmann · LCR: líquido cefalorraquídeo · RR: riesgo relativo · n.r.: no reportado en el resumen.</p>
+  <h3>Referencias de las revisiones incluidas</h3>
+  <ul class="refs" id="lista-revisiones"></ul>
+</section>
+
+<!-- ===================== ESCALAS ===================== -->
+<section id="escalas">
+  <h2>Escalas usadas en los resultados</h2>
+  <h3>Koos [6]</h3>
+  <div class="tabla"><table>
+    <thead><tr><th>Grado</th><th>Descripción</th></tr></thead>
+    <tbody>
+      <tr><td class="id">I</td><td>Intracanalicular</td></tr>
+      <tr><td class="id">II</td><td>Sale al ángulo pontocerebeloso sin tocar el tronco</td></tr>
+      <tr><td class="id">III</td><td>Llena la cisterna y toca el tronco sin desplazarlo</td></tr>
+      <tr><td class="id">IV</td><td>Desplaza el tronco y los pares craneales</td></tr>
+    </tbody>
+  </table></div>
+  <h3>House-Brackmann [7]</h3>
+  <p>De I (función facial normal) a VI (parálisis total). Un buen resultado es HB I–II.</p>
+  <h3>Audición AAO-HNS [8]</h3>
+  <div class="tabla"><table>
+    <thead><tr><th>Clase</th><th>Umbral (PTA)</th><th>Discriminación</th></tr></thead>
+    <tbody>
+      <tr><td class="id">A</td><td>≤ 30 dB</td><td>≥ 70%</td></tr>
+      <tr><td class="id">B</td><td>&gt; 30 y ≤ 50 dB</td><td>≥ 50%</td></tr>
+      <tr><td class="id">C</td><td>&gt; 50 dB</td><td>≥ 50%</td></tr>
+      <tr><td class="id">D</td><td>Cualquiera</td><td>&lt; 50%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="nota">Audición útil = clases A y B.</p>
+</section>
+
+<!-- ===================== REGISTRO DE CRIBADO ===================== -->
+<section id="registro">
+  <h2>Registro de cribado</h2>
+  <p id="resumen-registro"></p>
+  <input class="buscador" id="buscador" type="search" placeholder="Buscar por PMID, título o motivo…" aria-label="Buscar en el registro de cribado">
+  <div class="tabla">
+    <table class="apilable">
+      <thead><tr><th>PMID · año</th><th>Título</th><th>Decisión</th><th>Motivo</th></tr></thead>
+      <tbody id="tabla-registro"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== REFERENCIAS ===================== -->
+<section id="referencias">
+  <h2>Referencias</h2>
+  <p class="nota">Las referencias 1–5 son las citadas en el póster.</p>
+  <ol class="refs" id="lista-referencias"></ol>
+</section>
+
+<footer>
+  Material suplementario del póster · UDA de Sistema Nervioso · Universidad de Guanajuato, Campus León.<br>
+  Última actualización: 20 de noviembre de 2026.
+</footer>
+</main>
+
+<script src="datos.js"></script>
+<script>
+  // Genera las tablas a partir de datos.js. Normalmente no necesitas tocar esto.
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const enlace = r => r.doi ? ` doi: <a href="https://doi.org/${esc(r.doi)}">${esc(r.doi)}</a>.`
+                      : r.url ? ` Disponible en: <a href="${esc(r.url)}">${esc(r.url)}</a>` : '';
+  const pubmed = r => r.pmid ? ` PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(r.pmid)}/">${esc(r.pmid)}</a>.` : '';
+
+  $('tabla-revisiones').innerHTML = REVISIONES.map(r =>
+    `<tr><td class="id">${esc(r.id)} · ${esc(r.revision)}</td><td data-label="Tema">${esc(r.tema)}</td><td data-label="Estudios / pacientes">${esc(r.estudios)}</td><td data-label="Hallazgo">${esc(r.hallazgo)}</td></tr>`).join('');
+  $('lista-revisiones').innerHTML = REVISIONES.map(r =>
+    `<li><b>${esc(r.id)}.</b> ${esc(r.referencia)}${enlace(r)}${pubmed(r)}</li>`).join('');
+  $('lista-referencias').innerHTML = REFERENCIAS.map(r =>
+    `<li>${esc(r.referencia)}${enlace(r)}${pubmed(r)}</li>`).join('');
+
+  function pintarRegistro(filtro = '') {
+    const f = filtro.trim().toLowerCase();
+    const filas = REGISTRO.filter(r => !f || [r.pmid, r.titulo, r.decision, r.motivo].join(' ').toLowerCase().includes(f));
+    $('tabla-registro').innerHTML = filas.map(r =>
+      `<tr><td class="id"><a href="https://pubmed.ncbi.nlm.nih.gov/${esc(r.pmid)}/">${esc(r.pmid)}</a> · ${esc(r.anio || '—')}</td><td data-label="Título">${esc(r.titulo)}</td><td data-label="Decisión">${esc(r.decision)}</td><td data-label="Motivo">${esc(r.motivo)}</td></tr>`).join('');
+  }
+  const cuenta = d => REGISTRO.filter(r => r.decision === d).length;
+  $('resumen-registro').textContent = `${REGISTRO.length} registros: ${cuenta('Incluida')} incluidos, ${cuenta('Excluida (texto completo)')} excluidos a texto completo, ${cuenta('Excluida (título/resumen)')} excluidos por título y resumen y ${cuenta('Eliminada')} eliminado antes del cribado.`;
+  pintarRegistro();
+  $('buscador').addEventListener('input', e => pintarRegistro(e.target.value));
+
+  $('copiar').addEventListener('click', () => {
+    navigator.clipboard.writeText($('cadena').textContent).then(() => { $('copiar').textContent = 'Copiada'; setTimeout(() => $('copiar').textContent = 'Copiar cadena', 1500); });
+  });
+</script>
+</body>
+</html>
