@@ -59,21 +59,21 @@ const HISTOLOGIA = [
   titulo: "Vista general de un Schwannoma vestibular. (H&E)",
   descripcion: "Corte histológico general de un Schwannoma.",
   credito: "Pathology Outlines",
-  enlace: https://www.pathologyoutlines.com/topic/cnstumorschwannoma.html""
+  enlace: "https://www.pathologyoutlines.com/topic/cnstumorschwannoma.html"
   },
     {
   archivo: "archivos/histologia/imagen-2.png",
   titulo: "Patrones de Antoni A y Antoni B. (H&E)",
   descripcion: "Corte histológico de schwannoma que muestra áreas celulares Antoni A con cuerpos de Verocay (VB) y áreas hipocelulares Antoni B (AB)",
   credito: "Deviprasad Dosemane et al.",
-  enlace: https://www.researchgate.net/figure/Histological-picture-showing-characteristic-features-of-schwannoma-consisting-of-Antony-A_fig5_352247453""
+  enlace: "https://www.researchgate.net/figure/Histological-picture-showing-characteristic-features-of-schwannoma-consisting-of-Antony-A_fig5_352247453"
   },
        {
   archivo: "archivos/histologia/imagen-3.png",
   titulo: "Patrones de Verocay. (H&E)",
   descripcion: "Corte histológico de schwannoma (tinción H&E) con patrón bifásico característico: zonas hipercelulares Antoni A compuestas por fascículos de células fusiformes y áreas hipocelulares Antoni B de matriz mixoide laxa.",
   credito: "Dra. Saranya Singaravel",
-  enlace: https://ilovepathology.com/pathology-of-schwannoma/""
+  enlace: "https://ilovepathology.com/pathology-of-schwannoma/"
   },
 ];
 
