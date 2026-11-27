@@ -38,7 +38,7 @@
                 tienes, déjalo como "".
    --------------------------------------------------------------------- */
 const POSTER = {
-  archivo: "archivos/poster/Poster.pdf",
+  archivo: "archivos/poster/poster.pdf",
   vistaPrevia: "",
   titulo: "Fisiopatología, presentación clínica y abordaje quirúrgico de los schwannomas vestibulares"
 };
