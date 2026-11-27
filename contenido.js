@@ -83,7 +83,7 @@ const HISTOLOGIA = [
    --------------------------------------------------------------------- */
 const IMAGENOLOGIA = [
   {
-    archivo: "archivos/imagenologia/rm-axial-t1-gadolinio.pn",
+    archivo: "archivos/imagenologia/rm-axial-t1-gadolinio.png",
     titulo: "Resonancia magnética axial T1 con gadolinio",
     descripcion: "Masa en el ángulo pontocerebeloso izquierdo (flecha): el lugar típico donde crece el schwannoma vestibular. Es la Figura 1 del póster.",
     credito: "Caso cortesía de Mostafa Elfeky, Radiopaedia.org, rID: 163841 (CC BY-NC-SA 3.0)",
