@@ -83,11 +83,25 @@ const HISTOLOGIA = [
    --------------------------------------------------------------------- */
 const IMAGENOLOGIA = [
   {
-    archivo: "archivos/imagenologia/rm-axial-t1-gadolinio.png",
+    archivo: "archivos/imagenologia/rm-axial-t1-gadolinio.pn",
     titulo: "Resonancia magnética axial T1 con gadolinio",
     descripcion: "Masa en el ángulo pontocerebeloso izquierdo (flecha): el lugar típico donde crece el schwannoma vestibular. Es la Figura 1 del póster.",
     credito: "Caso cortesía de Mostafa Elfeky, Radiopaedia.org, rID: 163841 (CC BY-NC-SA 3.0)",
     enlace: "https://radiopaedia.org/cases/163841"
+  },
+  {
+    archivo: "archivos/imagenologia/tac-1.jpeg",
+    titulo: "Schwannoma vestibular en el ángulo pontocerebeloso",
+    descripcion: "En la resonancia axial de referencia se observa una lesión ocupante en el ángulo pontocerebeloso, región clave al analizar el acceso y la exposición quirúrgica de los schwannomas vestibulares.",
+    credito: "Health Jade",
+    enlace: "https://healthjade.com/schwannoma/"
+  },
+  {
+    archivo: "archivos/imagenologia/tac-2.jpeg",
+    titulo: "Schwannoma vestibular izquierdo en resonancia magnética",
+    descripcion: "Resonancia magnética cerebral en secuencia T1 sagital que muestra una masa heterogénea hipointensa ocupando el ángulo pontocerebeloso izquierdo.",
+    credito: "The Johns Hopkins University",
+    enlace: "https://radiopaedia.org/cases/163841https://www.ctisus.com/teachingfiles/cases/neuro-mr/351289"
   },
 ];
 
