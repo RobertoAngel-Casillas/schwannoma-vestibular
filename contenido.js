@@ -123,27 +123,28 @@ const HERRAMIENTAS = [
     enlace: "https://pubmed.ncbi.nlm.nih.gov/"
   },
   {
-    nombre: "Europe PMC",
-    uso: "Revisión de los artículos que citan a las revisiones incluidas",
-    logo: "archivos/herramientas/europepmc.svg",
-    enlace: "https://europepmc.org/"
+    nombre: "Affinity",
+    uso: "Creación de imagenes, diagramas y maquetación preeliminar.",
+    logo: "archivos/herramientas/affinity.svg",
+    enlace: "https://www.affinity.studio/es_es"
   },
   {
     nombre: "Figma",
-    uso: "Diseño del póster y de las figuras",
+    uso: "Diseño del póster y de las figuras.",
     logo: "archivos/herramientas/figma.svg",
     enlace: "https://www.figma.com/"
   },
   {
-    nombre: "Radiopaedia",
-    uso: "Imagen de resonancia magnética",
-    logo: "archivos/herramientas/radiopaedia.svg",
-    enlace: "https://radiopaedia.org/"
+    nombre: "SciHub",
+    uso: "Permitir el acceso a publicaciones científicas restringidas durante la revisión bibliográfica.",
+    logo: "archivos/herramientas/scihub.svg",
+    enlace: "https://sci-hub.al/?lang=es"
   },
   {
     nombre: "GitHub Pages",
-    uso: "Publicación de esta página",
+    uso: "Publicación de esta página.",
     logo: "archivos/herramientas/github.svg",
     enlace: "https://pages.github.com/"
   },
+
 ];
