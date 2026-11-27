@@ -1,0 +1,2 @@
+Aqui van los logos de las paginas y programas (SVG o PNG).
+Despues agregalos en contenido.js, en HERRAMIENTAS.

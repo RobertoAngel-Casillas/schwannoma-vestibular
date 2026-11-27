@@ -1,258 +1,428 @@
 <!doctype html>
 <html lang="es">
+<!--
+=======================================================================
+  INDEX.HTML — TEXTO DE LA PÁGINA
+  ---------------------------------------------------------------------
+  Archivos del sitio:
+    index.html    → este archivo: encabezado y texto de cada pestaña.
+    contenido.js  → listas de archivos (póster, imágenes, logos).
+                    Para agregar imágenes NO hace falta tocar este HTML.
+    estilos.css   → colores y diseño.
+    app.js        → hace funcionar las pestañas y el visor (no tocar).
+    archivos/     → carpetas con el póster, las imágenes y los logos.
+
+  Cómo está organizado este archivo:
+    1. ENCABEZADO   (título, autores, afiliación)
+    2. PESTAÑAS     (la barra de botones)
+    3. Una <section role="tabpanel"> por pestaña, en este orden:
+       poster · histologia · imagenologia · informacion · referencias · herramientas
+    4. PIE DE PÁGINA y VISOR de imágenes
+
+  Para cambiar un texto: búscalo (Ctrl + F), cámbialo y guarda.
+  Para agregar una pestaña nueva:
+    a) copia una línea <a role="tab" ...> en la barra y cambia
+       href="#..." y aria-controls="..." por el nuevo id;
+    b) copia una <section role="tabpanel" ...> completa y ponle
+       ese mismo id. Listo: app.js la reconoce sola.
+=======================================================================
+-->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Schwannomas vestibulares · Material suplementario</title>
-<meta name="description" content="Material suplementario del póster sobre fisiopatología, presentación clínica y abordaje quirúrgico de los schwannomas vestibulares.">
+<title>Schwannomas vestibulares · Material complementario del póster</title>
+<meta name="description" content="Póster, imágenes, información complementaria y referencias sobre la fisiopatología, presentación clínica y abordaje quirúrgico de los schwannomas vestibulares.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&family=IBM+Plex+Mono&display=swap">
-<style>
-  /* ===== Colores y tipografía: cambia aquí para todo el sitio ===== */
-  :root {
-    --azul: #1B2A3A;
-    --acento: #0BA3B2;
-    --acento-oscuro: #08707A;
-    --acento-claro: #7FD6DE;
-    --tinte: #E7F6F7;
-    --suave: #F4F7F9;
-    --gris: #4A5568;
-    --linea: #D5DDE5;
-    --ancho: 980px;
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; font-family: Montserrat, Arial, sans-serif; color: var(--azul); background: #fff; line-height: 1.6; font-size: 16px; }
-  a { color: var(--acento-oscuro); }
-  .contenedor { max-width: var(--ancho); margin: 0 auto; padding: 0 20px; }
-
-  header { background: var(--azul); color: #fff; padding: 40px 0 32px; }
-  header .etiqueta { color: var(--acento-claro); font-weight: 700; letter-spacing: 2px; font-size: 13px; text-transform: uppercase; }
-  header h1 { margin: 10px 0 12px; font-size: clamp(24px, 5vw, 38px); line-height: 1.15; font-weight: 800; }
-  header .sub { color: var(--acento-claro); font-weight: 600; margin: 0 0 18px; }
-  header .autores { font-weight: 700; margin: 0; }
-  header .afiliacion { color: #C9D3DE; font-size: 14px; margin: 4px 0 0; }
-
-  nav { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--linea); }
-  nav .contenedor { display: flex; gap: 8px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; }
-  nav a { flex: none; text-decoration: none; font-size: 14px; font-weight: 600; color: var(--azul); background: var(--suave); padding: 8px 14px; border-radius: 999px; }
-  nav a:hover { background: var(--tinte); }
-
-  section { padding: 40px 0 8px; scroll-margin-top: 60px; }
-  h2 { font-size: 26px; font-weight: 800; margin: 0 0 16px; padding-bottom: 10px; border-bottom: 4px solid var(--acento); }
-  h3 { font-size: 18px; font-weight: 700; margin: 28px 0 10px; }
-  .mensaje { background: var(--tinte); border-left: 6px solid var(--acento); padding: 18px 20px; font-weight: 700; font-size: 18px; border-radius: 0 10px 10px 0; }
-
-  .tabla { width: 100%; overflow-x: auto; border: 1px solid var(--linea); border-radius: 10px; }
-  table { border-collapse: collapse; width: 100%; font-size: 14px; }
-  th { background: var(--azul); color: #fff; text-align: left; padding: 10px 12px; font-weight: 700; white-space: nowrap; }
-  td { padding: 8px 12px; border-top: 1px solid var(--linea); vertical-align: top; }
-  tbody tr:nth-child(odd) { background: var(--suave); }
-  td.id { font-weight: 700; white-space: nowrap; }
-
-  .pico { display: grid; grid-template-columns: 64px 1fr; gap: 10px 14px; align-items: center; }
-  .pico b { background: var(--azul); color: #fff; border-radius: 10px; text-align: center; padding: 10px 0; }
-
-  pre { font-family: 'IBM Plex Mono', monospace; font-size: 13px; background: var(--suave); border-left: 6px solid var(--acento); padding: 14px 16px; border-radius: 8px; white-space: pre-wrap; word-break: break-word; margin: 0; }
-  button { font: inherit; font-weight: 600; font-size: 14px; color: #fff; background: var(--acento-oscuro); border: 0; border-radius: 8px; padding: 8px 14px; cursor: pointer; margin-top: 8px; }
-
-  .flujo { display: grid; gap: 10px; max-width: 560px; }
-  .paso { border: 2px solid var(--linea); border-radius: 12px; padding: 12px 16px; display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
-  .paso strong { font-size: 22px; }
-  .paso.final { background: var(--azul); color: #fff; border-color: var(--azul); }
-  .paso small { display: block; color: var(--gris); }
-  .paso.final small { color: var(--acento-claro); }
-
-  ol.refs { padding-left: 24px; }
-  ol.refs li, ul.refs li { overflow-wrap: anywhere; }
-  ol.refs li { margin-bottom: 10px; }
-  ul.refs { list-style: none; padding: 0; }
-  ul.refs li { margin-bottom: 10px; }
-
-  .buscador { width: 100%; font: inherit; padding: 10px 14px; border: 2px solid var(--linea); border-radius: 10px; margin: 6px 0 12px; }
-  .nota { color: var(--gris); font-size: 14px; }
-  /* En celular, las tablas largas se muestran como tarjetas */
-  @media (max-width: 680px) {
-    table.apilable, table.apilable tbody, table.apilable tr, table.apilable td { display: block; width: 100%; }
-    table.apilable thead { display: none; }
-    table.apilable tr { padding: 12px 14px; border-top: 1px solid var(--linea); }
-    table.apilable td { border: 0; padding: 2px 0; }
-    table.apilable td[data-label]::before { content: attr(data-label) ": "; font-weight: 600; color: var(--gris); }
-    table.apilable td.id { font-size: 16px; }
-  }
-  footer { margin-top: 48px; padding: 24px 0 40px; border-top: 4px solid var(--azul); color: var(--gris); font-size: 14px; }
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap">
+<link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
-<!-- ===================== ENCABEZADO ===================== -->
+<!-- ============================ 1. ENCABEZADO ============================ -->
 <header>
   <div class="contenedor">
-    <div class="etiqueta">Material suplementario del póster</div>
+    <p class="etiqueta">Material complementario del póster</p>
     <h1>Fisiopatología, presentación clínica y abordaje quirúrgico de los schwannomas vestibulares</h1>
-    <p class="sub">Revisión sistemática de revisiones sistemáticas y metaanálisis (2015–2025)</p>
-    <p class="autores">[Nombres de los autores]</p>
-    <p class="afiliacion">Licenciatura en Médico Cirujano · División de Ciencias de la Salud · Universidad de Guanajuato, Campus León · UDA de Sistema Nervioso</p>
+    <p class="sub">Revisión sistemática de revisiones</p>
+    <p class="autores">José Roberto Angel Casillas, Bryam Alexis Bernal Caudillo, Ilse Montserrath Infante Pardo, Sofía de la Cruz Martínez Rodríguez, Aranza Irazu Portugal Ortega, Sinaí Rodríguez Orozco</p>
+    <p class="afiliacion">Licenciatura en Médico Cirujano · Departamento de Medicina y Nutrición · División de Ciencias de la Salud · Campus León · Universidad de Guanajuato</p>
   </div>
 </header>
 
-<nav>
-  <div class="contenedor">
-    <a href="#resumen">Resumen</a>
-    <a href="#metodos">Métodos</a>
-    <a href="#revisiones">Revisiones incluidas</a>
-    <a href="#escalas">Escalas</a>
-    <a href="#registro">Registro de cribado</a>
-    <a href="#referencias">Referencias</a>
+<!-- ============================ 2. PESTAÑAS ============================
+     El texto de cada botón se puede cambiar libremente.
+     href y aria-controls deben coincidir con el id de su sección. -->
+<nav id="pestanas" aria-label="Secciones">
+  <div class="contenedor" role="tablist">
+    <a role="tab" href="#poster" aria-controls="poster">Póster</a>
+    <a role="tab" href="#histologia" aria-controls="histologia">Histología</a>
+    <a role="tab" href="#imagenologia" aria-controls="imagenologia">Imagenología</a>
+    <a role="tab" href="#informacion" aria-controls="informacion">Información complementaria</a>
+    <a role="tab" href="#referencias" aria-controls="referencias">Referencias</a>
+    <a role="tab" href="#herramientas" aria-controls="herramientas">Herramientas</a>
   </div>
 </nav>
 
 <main class="contenedor">
 
-<!-- ===================== RESUMEN ===================== -->
-<section id="resumen">
-  <h2>Resumen</h2>
-  <p class="mensaje">Ningún abordaje es superior en todo: el tamaño del tumor y la audición útil deciden la vía, y dejar un remanente pequeño protege el nervio facial a cambio de más recurrencia.</p>
-  <ol>
-    <li><b>Ningún abordaje gana en todo.</b> La fosa media conserva mejor la audición en tumores intracanaliculares; el retrosigmoideo, en los que salen del conducto y miden menos de 3 cm; el translaberíntico logra más resección total sin más fístulas, pero sacrifica la audición.</li>
-    <li><b>La audición útil se conserva en 23–57% de los operados</b> y cae con el tamaño (57% → 12% con retrosigmoideo); si se conserva al inicio, se mantiene a largo plazo.</li>
-    <li><b>En tumores grandes, resecar menos protege el facial:</b> subtotal + radiocirugía logra House-Brackmann I–II en 85–96% con control de 80–94%, frente a 60% y 99.8% con resección total.</li>
-    <li><b>La certeza es baja</b> (estudios observacionales y heterogéneos): la vía depende del tumor, la audición, la edad y la experiencia del equipo.</li>
-  </ol>
+<!-- ============================ PESTAÑA: PÓSTER ============================
+     El archivo del póster se elige en contenido.js (POSTER). -->
+<section id="poster" role="tabpanel" aria-label="Póster">
+  <h2>Póster completo</h2>
+  <p>Este es el póster tal como lo presentamos. Si no se ve bien en tu celular, ábrelo en pantalla completa.</p>
+  <div id="visor-poster"></div>
 </section>
 
-<!-- ===================== MÉTODOS ===================== -->
-<section id="metodos">
-  <h2>Métodos</h2>
-  <p>Revisión sistemática de revisiones sistemáticas (<i>umbrella review</i>) según los manuales JBI y Cochrane, reportada con PRISMA 2020 [4,10,11].</p>
-
-  <h3>Pregunta (PICO)</h3>
-  <div class="pico">
-    <b>P</b><span>Adultos con schwannoma vestibular esporádico tratados con microcirugía.</span>
-    <b>I / C</b><span>Retrosigmoideo vs translaberíntico vs fosa media; resección total vs casi total o subtotal (± radiocirugía).</span>
-    <b>O</b><span>Función facial (House-Brackmann I–II), audición útil, fístula de LCR y recurrencia.</span>
-  </div>
-
-  <h3>Búsqueda</h3>
-  <p>PubMed/MEDLINE, 18 de noviembre de 2026; publicaciones de 2015 a 2025.</p>
-  <pre id="cadena">("Neuroma, Acoustic"[MeSH] OR "vestibular schwannoma"[tiab] OR "vestibular schwannomas"[tiab] OR "acoustic neuroma"[tiab]) AND (retrosigmoid[tiab] OR translabyrinthine[tiab] OR "middle fossa"[tiab] OR "middle cranial fossa"[tiab] OR microsurgery[tiab] OR microsurgical[tiab] OR "surgical approach"[tiab] OR "surgical approaches"[tiab] OR resection[tiab]) AND (systematic review[pt] OR meta-analysis[pt] OR "systematic review"[tiab] OR "meta-analysis"[tiab])</pre>
-  <button type="button" id="copiar">Copiar cadena</button>
-
-  <h3>Criterios</h3>
-  <p><b>Inclusión:</b> revisiones sistemáticas, con o sin metaanálisis, de adultos con schwannoma vestibular esporádico operados, que reporten función facial, audición, fístula de LCR, extensión de resección o recurrencia.</p>
-  <p><b>Exclusión:</b> cartas, comentarios, reportes o series de caso; guías y consensos; <i>NF2</i>, otros tumores, población pediátrica o tumores tratados previamente; solo radiocirugía u observación; rehabilitación, IA, imagen o monitoreo; desenlaces o técnicas fuera de la pregunta.</p>
-  <p><b>Selección y calidad:</b> cribado por título y resumen y a texto completo [dos revisores independientes, Rayyan [9]]; calidad con AMSTAR 2 [5] [pendiente].</p>
-
-  <h3>Selección de estudios (PRISMA 2020)</h3>
-  <!-- Cambia los números aquí si repiten el cribado -->
-  <div class="flujo">
-    <div class="paso"><span>Registros identificados en PubMed</span><strong>125</strong></div>
-    <div class="paso"><span>Cribados por título y resumen<small>1 eliminado antes del cribado (sin datos)</small></span><strong>124</strong></div>
-    <div class="paso"><span>Evaluados a texto completo<small>103 excluidos por título y resumen</small></span><strong>21</strong></div>
-    <div class="paso final"><span>Revisiones incluidas<small>3 excluidas a texto completo</small></span><strong>18</strong></div>
-  </div>
-  <p class="nota">Motivos de exclusión por título y resumen: población distinta 28; otra modalidad (radiocirugía u observación) 22; rehabilitación, IA, imagen o monitoreo 14; desenlace fuera de alcance 13; guía o consenso 10; no es revisión sistemática 9; otra técnica o abordaje 7.</p>
+<!-- ============================ PESTAÑA: HISTOLOGÍA ============================
+     Las imágenes se agregan en contenido.js (HISTOLOGIA). -->
+<section id="histologia" role="tabpanel" aria-label="Histología">
+  <h2>Histología</h2>
+  <p>Así se ve el schwannoma vestibular al microscopio. Toca una imagen para verla en grande.</p>
+  <div id="galeria-histologia" class="galeria"></div>
 </section>
 
-<!-- ===================== REVISIONES INCLUIDAS ===================== -->
-<section id="revisiones">
-  <h2>Revisiones incluidas (R1–R18)</h2>
+<!-- ============================ PESTAÑA: IMAGENOLOGÍA ============================
+     Las imágenes se agregan en contenido.js (IMAGENOLOGIA). -->
+<section id="imagenologia" role="tabpanel" aria-label="Imagenología">
+  <h2>Imagenología</h2>
+  <p>Resonancias y otros estudios de imagen donde se ve el tumor. Toca una imagen para verla en grande.</p>
+  <div id="galeria-imagenologia" class="galeria"></div>
+</section>
+
+<!-- ============================ PESTAÑA: INFORMACIÓN COMPLEMENTARIA ============================
+     Los números entre corchetes [1] son las referencias de la pestaña Referencias.
+     R1 a R5 son las revisiones que incluimos. -->
+<section id="informacion" role="tabpanel" aria-label="Información complementaria">
+  <h2>Información complementaria</h2>
+  <p class="mensaje">En el schwannoma vestibular no hay abordaje perfecto, solo el adecuado para cada tumor.</p>
+
+  <nav class="indice" aria-label="Contenido de esta pestaña">
+    <b>En esta sección</b>
+    <ol>
+      <li><a href="#en-corto">En corto</a></li>
+      <li><a href="#el-tumor">El tumor</a></li>
+      <li><a href="#los-abordajes">Los tres abordajes</a></li>
+      <li><a href="#resultados">Qué encontramos</a></li>
+      <li><a href="#metodo">Cómo hicimos el trabajo</a></li>
+      <li><a href="#escalas">Escalas</a></li>
+      <li><a href="#glosario">Glosario</a></li>
+    </ol>
+  </nav>
+
+  <!-- ---------- En corto ---------- -->
+  <h3 id="en-corto">En corto</h3>
+  <p>Revisamos las revisiones sistemáticas más grandes (1,000 pacientes o más) publicadas de 2021 a noviembre de 2026 sobre los resultados de la cirugía. Incluimos 5.</p>
+  <div class="cifras">
+    <div class="cifra"><b>1 de cada 8</b><span>operados presenta parálisis facial tardía (12.3%), sin importar el abordaje.</span><small>R3 · 27 estudios</small></div>
+    <div class="cifra"><b>85%</b><span>de quienes tienen parálisis facial tardía recupera un House-Brackmann I–II en un año.</span><small>R4 · 10 estudios</small></div>
+    <div class="cifra"><b>≈ 178 casos</b><span>de experiencia en promedio, a partir de los cuales mejora la función facial (de 14 a 416).</span><small>R5 · 11 estudios</small></div>
+    <div class="cifra"><b>≈ 12%</b><span>presenta fístula de LCR, igual con translaberíntico que con retrosigmoideo (11.4% vs 12.0%).</span><small>R2</small></div>
+  </div>
+  <ul>
+    <li>La <b>fístula de LCR</b> fue igual con los tres abordajes. <span class="cita">R1, R2</span></li>
+    <li>El retrosigmoideo tuvo casi <b>5 veces más hidrocefalia</b> que el translaberíntico, y la fosa media <b>3 veces más infección de la herida</b> que el retrosigmoideo. <span class="cita">R1</span></li>
+    <li>El translaberíntico redujo la estancia <b>1.2 días</b> y, en R2, tuvo mejor función facial; R1 no encontró diferencia en la parálisis facial tardía. <span class="cita">R1, R2</span></li>
+    <li>La <b>audición útil</b> fue parecida con fosa media y con retrosigmoideo, pero con muy pocos datos (2 estudios, 116 pacientes). <span class="cita">R1</span></li>
+    <li>La <b>parálisis facial tardía</b> no dependió del abordaje y casi siempre se recupera. <span class="cita">R3, R4</span></li>
+    <li>La <b>experiencia del cirujano</b> mejora la función facial. <span class="cita">R5</span></li>
+  </ul>
+
+  <!-- ---------- El tumor ---------- -->
+  <h3 id="el-tumor">El tumor</h3>
+  <h4>¿Qué es?</h4>
+  <p>Es un tumor benigno de las células de Schwann del VIII par craneal [1] y el más frecuente del ángulo pontocerebeloso [5]. Antes se le llamaba <i>neuroma acústico</i>, pero el nombre es impreciso: no nace de neuronas, sino de células de Schwann, y casi siempre de la porción vestibular del nervio, no de la coclear. Puedes ver cómo se ve en una resonancia en la pestaña <a href="#imagenologia">Imagenología</a>.</p>
+
+  <h4>¿Por qué crece?</h4>
+  <p>La mayoría se explica por la pérdida de las dos copias funcionales del gen <i>NF2</i> (22q12), que codifica la merlina, una proteína supresora de tumores; sin ella, las células de Schwann proliferan sin freno [2]. Cuando la mutación se hereda aparece la neurofibromatosis tipo 2, cuyo sello son los schwannomas vestibulares de ambos lados [2]. Nuestro trabajo solo incluye los esporádicos.</p>
+
+  <h4>¿Cómo se presenta?</h4>
+  <p>En una serie de 1,000 schwannomas operados, estos fueron los nervios con síntomas [4]:</p>
+  <div class="barras">
+    <!-- Para cambiar una barra, cambia el porcentaje en style="width:..%" y el número en <b> -->
+    <div class="barra"><span>Auditivo: hipoacusia, acúfeno</span><div class="riel"><div class="relleno" style="width:95%"></div></div><b>95%</b></div>
+    <div class="barra"><span>Vestibular: inestabilidad, vértigo</span><div class="riel"><div class="relleno" style="width:61%"></div></div><b>61%</b></div>
+    <div class="barra"><span>Trigémino</span><div class="riel"><div class="relleno" style="width:9%"></div></div><b>9%</b></div>
+    <div class="barra"><span>Facial</span><div class="riel"><div class="relleno" style="width:6%"></div></div><b>6%</b></div>
+  </div>
+  <p>La hipoacusia se arrastraba en promedio 3.7 años antes del diagnóstico, y en 3% la sordera llegó de golpe. La inestabilidad suele ir y venir. Los síntomas del trigémino aparecen sobre todo en tumores grandes que ya comprimen el tronco encefálico [4].</p>
+
+  <h4>¿Por qué se pierde la audición?</h4>
+  <p>No es solo la compresión del nervio coclear dentro del conducto auditivo interno. En un estudio de laboratorio, las sustancias que secretan estos tumores dañaron cultivos de cóclea de ratón, y el daño fue mayor con los tumores de pacientes que oían peor; una de las moléculas tóxicas fue el TNF-α [5].</p>
+
+  <h4>¿Cómo se diagnostica y se trata?</h4>
+  <p>El diagnóstico se hace con resonancia magnética y no siempre hace falta biopsia. Las opciones son observar, radiocirugía, radioterapia fraccionada o cirugía; se elige según los síntomas, el tamaño del tumor y la experiencia del centro. En tumores pequeños se pondera observar contra radiocirugía; en los grandes, la cirugía es obligatoria [1]. Nuestro trabajo se centra en la cirugía.</p>
+
+  <div class="recuadro">
+    <h4>¿Sabías que…?</h4>
+    <ul>
+      <li>Se suele decir que afecta a 1 de cada 100,000 personas, pero los estudios recientes reportan de 3.0 a 5.2 casos por 100,000 personas al año, y hasta 20.6 en personas de 70 años o más. Probablemente más de 1 de cada 500 personas lo desarrolla en algún momento de su vida [3].</li>
+      <li>Aunque el tumor crece pegado al nervio facial, solo 6% tenía síntomas faciales [4].</li>
+      <li>Quedarse sordo no quita el acúfeno: seguía en 46% de los pacientes que ya estaban sordos antes de la cirugía [4].</li>
+    </ul>
+  </div>
+
+  <!-- ---------- Los tres abordajes ---------- -->
+  <h3 id="los-abordajes">Los tres abordajes</h3>
+  <figure class="figura">
+    <img src="archivos/figuras/abordajes.png" width="700" height="710" alt="Dibujo de un cráneo de perfil con los tres sitios de entrada: fosa media por encima del oído, translaberíntico detrás del conducto auditivo y retrosigmoideo más atrás, detrás del seno sigmoideo.">
+    <figcaption><b>Figura 2 del póster.</b> Sitio de entrada de cada abordaje: fosa media, por encima del oído a través del hueso temporal; translaberíntico, detrás del conducto auditivo a través de la mastoides y el laberinto; y retrosigmoideo, detrás del seno sigmoideo.</figcaption>
+  </figure>
+
+  <div class="abordajes">
+    <div class="abordaje rs">
+      <h4>Retrosigmoideo (RS)</h4>
+      <dl>
+        <dt>Entrada</dt><dd>Detrás del seno sigmoideo.</dd>
+        <dt>Audición</dt><dd>Se puede intentar conservar.</dd>
+        <dt>Se usa para</dt><dd>Tumores que salen al ángulo pontocerebeloso. <span class="cita">R1</span></dd>
+        <dt>Ojo</dt><dd>Más hidrocefalia que el translaberíntico. <span class="cita">R1</span></dd>
+      </dl>
+    </div>
+    <div class="abordaje tl">
+      <h4>Translaberíntico (TL)</h4>
+      <dl>
+        <dt>Entrada</dt><dd>A través de la mastoides y el laberinto.</dd>
+        <dt>Audición</dt><dd>Se sacrifica, porque se abre el laberinto.</dd>
+        <dt>Se usa para</dt><dd>Tumores de cualquier tamaño cuando ya no hay audición útil.</dd>
+        <dt>A favor</dt><dd>Menos hidrocefalia que el retrosigmoideo y 1.2 días menos de hospital. <span class="cita">R1, R2</span></dd>
+      </dl>
+    </div>
+    <div class="abordaje fm">
+      <h4>Fosa media (FM)</h4>
+      <dl>
+        <dt>Entrada</dt><dd>Por encima del oído, a través del hueso temporal.</dd>
+        <dt>Audición</dt><dd>Se puede intentar conservar.</dd>
+        <dt>Se usa para</dt><dd>Tumores pequeños, dentro del conducto auditivo interno. <span class="cita">R1</span></dd>
+        <dt>Ojo</dt><dd>Más infección de la herida que el retrosigmoideo. <span class="cita">R1</span></dd>
+      </dl>
+    </div>
+  </div>
+
+  <h4>¿Cómo se elige?</h4>
+  <div class="elegir">
+    <div class="pregunta">1. ¿El paciente conserva audición útil?</div>
+    <div class="resp tl">No → <b>Translaberíntico</b></div>
+    <div class="pregunta">2. Si sí: ¿el tumor está dentro del conducto auditivo interno?</div>
+    <div class="resp fm">Sí → <b>Fosa media</b></div>
+    <div class="resp rs">No, ya sale al ángulo → <b>Retrosigmoideo</b></div>
+  </div>
+  <p class="nota">Algoritmo simplificado que propusimos a partir de [1] y R1–R2 (Figura 4 del póster). Es orientativo: en la práctica también pesan los síntomas, el tamaño del tumor y la experiencia del centro [1].</p>
+
+  <!-- ---------- Qué encontramos ---------- -->
+  <h3 id="resultados">Qué encontramos</h3>
+  <p>Cada abordaje comparado contra el retrosigmoideo. Aquí agregamos las cifras que no cupieron en el póster.</p>
+  <div class="leyenda">
+    <span class="l-igual">Sin diferencia significativa</span>
+    <span class="l-tl">Favorece al translaberíntico</span>
+    <span class="l-rs">Favorece al retrosigmoideo</span>
+    <span class="l-nd">Sin datos o no aplica</span>
+  </div>
+  <!-- Colores de cada celda: igual = gris · c-tl = azul · c-rs = turquesa · nd = sin datos -->
+  <div class="tabla">
+    <table class="mapa apilable">
+      <thead><tr><th>Desenlace</th><th>Translaberíntico vs RS</th><th>Fosa media vs RS</th></tr></thead>
+      <tbody>
+        <tr><td>Función facial</td>
+          <td data-label="Translaberíntico vs RS"><div class="celda c-tl">Mejor con TL · R2<small>House-Brackmann IV o mejor: OR 0.30 (IC 95% 0.10–0.89). R1 no vio diferencia en la parálisis tardía: RR 0.91 (0.77–1.07).</small></div></td>
+          <td data-label="Fosa media vs RS"><div class="celda igual">Sin diferencia · R1<small>RR 0.98 (0.92–1.04)</small></div></td></tr>
+        <tr><td>Audición útil</td>
+          <td data-label="Translaberíntico vs RS"><div class="celda nd">No aplica: el TL sacrifica la audición</div></td>
+          <td data-label="Fosa media vs RS"><div class="celda igual">Sin diferencia · R1<small>RR 1.18 (0.76–1.85); solo 2 estudios, 116 pacientes</small></div></td></tr>
+        <tr><td>Fístula de LCR</td>
+          <td data-label="Translaberíntico vs RS"><div class="celda igual">Sin diferencia · R1, R2<small>R1: RR 1.18 (0.92–1.51). R2: 11.4% vs 12.0%, OR 1.03 (0.81–1.32)</small></div></td>
+          <td data-label="Fosa media vs RS"><div class="celda igual">Sin diferencia · R1<small>RR 1.14 (0.70–1.83)</small></div></td></tr>
+        <tr><td>Meningitis</td>
+          <td data-label="Translaberíntico vs RS"><div class="celda igual">Sin diferencia · R2<small>OR 1.05 (0.45–2.43)</small></div></td>
+          <td data-label="Fosa media vs RS"><div class="celda nd">Sin datos</div></td></tr>
+        <tr><td>Hidrocefalia</td>
+          <td data-label="Translaberíntico vs RS"><div class="celda c-tl">4.8 veces más con RS · R1<small>RR 4.84 (1.96–11.96); 34 de 355 con RS vs 4 de 273 con TL</small></div></td>
+          <td data-label="Fosa media vs RS"><div class="celda nd">Sin datos</div></td></tr>
+        <tr><td>Infección de la herida</td>
+          <td data-label="Translaberíntico vs RS"><div class="celda igual">Sin diferencia · R1</div></td>
+          <td data-label="Fosa media vs RS"><div class="celda c-rs">3.2 veces más con FM · R1<small>RR 3.17 (1.13–8.85)</small></div></td></tr>
+        <tr><td>Días de hospital</td>
+          <td data-label="Translaberíntico vs RS"><div class="celda c-tl">1.2 días menos con TL · R2<small>Diferencia de medias −1.20 (−1.39 a −1.01)</small></div></td>
+          <td data-label="Fosa media vs RS"><div class="celda nd">Sin datos</div></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="nota"><b>Ojo con R1:</b> su resumen dice que el retrosigmoideo tuvo menos hidrocefalia, pero sus gráficas de bosque muestran lo contrario. Usamos los datos de las gráficas.</p>
+
+  <h4>Revisiones incluidas (n = 5)</h4>
   <div class="tabla">
     <table class="apilable">
       <thead><tr><th>Revisión</th><th>Tema</th><th>Estudios / pacientes</th><th>Hallazgo principal</th></tr></thead>
-      <tbody id="tabla-revisiones"></tbody>
+      <tbody>
+        <tr><td class="id">R1 · Garcia-Torrico 2025</td><td data-label="Tema">RS vs TL vs FM</td><td data-label="Estudios / pacientes">32 / 6,889</td><td data-label="Hallazgo principal">Sin diferencia en audición, función facial tardía ni fístula de LCR. Más hidrocefalia con RS que con TL y más infección de la herida con FM que con RS.</td></tr>
+        <tr><td class="id">R2 · Gibbon 2025</td><td data-label="Tema">TL vs RS</td><td data-label="Estudios / pacientes">21 / 4,572</td><td data-label="Hallazgo principal">Fístula (11.4% vs 12.0%) y meningitis iguales. Con TL, 1.2 días menos de hospital y mejor función facial.</td></tr>
+        <tr><td class="id">R3 · Zhang 2025</td><td data-label="Tema">Parálisis facial tardía: incidencia y factores de riesgo</td><td data-label="Estudios / pacientes">27 / 8,656</td><td data-label="Hallazgo principal">12.3% (IC 95% 9.4–15.1); más en jóvenes y en tumores grandes; no depende del abordaje.</td></tr>
+        <tr><td class="id">R4 · Huppert Steed 2026</td><td data-label="Tema">Parálisis facial tardía: frecuencia y pronóstico</td><td data-label="Estudios / pacientes">10 / 2,122</td><td data-label="Hallazgo principal">13% (8–21%); aparece hacia el día 7.5; 85% recupera House-Brackmann I–II en un año; no depende del abordaje.</td></tr>
+        <tr><td class="id">R5 · Deeb 2026</td><td data-label="Tema">Curva de aprendizaje del cirujano</td><td data-label="Estudios / pacientes">12 / 4,059 casos</td><td data-label="Hallazgo principal">Los 11 estudios que midieron la función facial reportaron mejoría con la experiencia; la audición mejoró en 4.</td></tr>
+      </tbody>
     </table>
   </div>
-  <p class="nota">RS: retrosigmoideo · TL: translaberíntico · FM: fosa media · HB: House-Brackmann · LCR: líquido cefalorraquídeo · RR: riesgo relativo · n.r.: no reportado en el resumen.</p>
-  <h3>Referencias de las revisiones incluidas</h3>
-  <ul class="refs" id="lista-revisiones"></ul>
-</section>
 
-<!-- ===================== ESCALAS ===================== -->
-<section id="escalas">
-  <h2>Escalas usadas en los resultados</h2>
-  <h3>Koos [6]</h3>
+  <!-- ---------- Cómo hicimos el trabajo ---------- -->
+  <h3 id="metodo">Cómo hicimos el trabajo</h3>
+  <p>En lugar de leer cientos de estudios sueltos, juntamos los resultados de revisiones sistemáticas que ya los habían analizado (una «revisión de revisiones»), siguiendo la guía PRISMA 2020 [6]. Buscamos en PubMed el 24 y 25 de noviembre de 2026 e incluimos revisiones de 2021 en adelante, de adultos operados de un schwannoma vestibular no tratado antes, con 1,000 pacientes o más. Dejamos fuera las que solo estudiaban radiocirugía u observación.</p>
+
+  <!-- Para cambiar un número del diagrama, edita el <strong> de cada renglón -->
+  <div class="prisma">
+    <div class="columna">
+      <h4>Búsqueda principal (PubMed)</h4>
+      <div class="paso"><span>Registros encontrados</span><strong>25</strong></div>
+      <div class="sale"><span>Eliminados antes de revisar</span><strong>0</strong></div>
+      <div class="paso"><span>Revisados por título y resumen</span><strong>25</strong></div>
+      <div class="sale"><span>Descartados</span><strong>17</strong></div>
+      <div class="paso"><span>Buscados completos</span><strong>8</strong></div>
+      <div class="sale"><span>No se pudieron conseguir</span><strong>4</strong></div>
+      <div class="paso"><span>Leídos completos</span><strong>4</strong></div>
+      <div class="sale"><span>Descartado: menos de 1,000 pacientes</span><strong>1</strong></div>
+      <div class="paso final"><span>Incluidas (R1–R3)</span><strong>3</strong></div>
+    </div>
+    <div class="columna">
+      <h4>Búsqueda complementaria (otros métodos)</h4>
+      <div class="paso"><span>Registros encontrados</span><strong>30</strong></div>
+      <div class="sale"><span>Ya estaban en la principal</span><strong>4</strong></div>
+      <div class="paso"><span>Revisados por título y resumen</span><strong>26</strong></div>
+      <div class="sale"><span>Descartados</span><strong>24</strong></div>
+      <div class="paso"><span>Buscados completos</span><strong>2</strong></div>
+      <div class="sale"><span>No se pudieron conseguir</span><strong>0</strong></div>
+      <div class="paso"><span>Leídos completos</span><strong>2</strong></div>
+      <div class="sale"><span>Descartados</span><strong>0</strong></div>
+      <div class="paso final"><span>Incluidas (R4–R5)</span><strong>2</strong></div>
+    </div>
+  </div>
+  <p class="total">Total: 5 revisiones incluidas.</p>
+
+  <h4>Limitaciones</h4>
+  <ul>
+    <li>Solo buscamos en PubMed.</li>
+    <li>No conseguimos 4 revisiones completas, y la búsqueda complementaria se limitó a artículos gratuitos.</li>
+    <li>La selección la hizo un solo evaluador.</li>
+    <li>No evaluamos la calidad de las revisiones con AMSTAR 2 [7].</li>
+    <li>El mínimo de 1,000 pacientes es una decisión nuestra.</li>
+    <li>Varias revisiones comparten estudios y casi todos son observacionales, así que hay que tomar los resultados con cuidado. Además, cada estudio define la parálisis facial tardía a su manera (R4).</li>
+  </ul>
+
+  <!-- ---------- Escalas ---------- -->
+  <h3 id="escalas">Escalas</h3>
+  <h4>Koos: tamaño y extensión del tumor [8]</h4>
   <div class="tabla"><table>
     <thead><tr><th>Grado</th><th>Descripción</th></tr></thead>
     <tbody>
-      <tr><td class="id">I</td><td>Intracanalicular</td></tr>
-      <tr><td class="id">II</td><td>Sale al ángulo pontocerebeloso sin tocar el tronco</td></tr>
-      <tr><td class="id">III</td><td>Llena la cisterna y toca el tronco sin desplazarlo</td></tr>
-      <tr><td class="id">IV</td><td>Desplaza el tronco y los pares craneales</td></tr>
+      <tr><td class="id">I</td><td>Dentro del conducto auditivo interno (intracanalicular).</td></tr>
+      <tr><td class="id">II</td><td>Sale al ángulo pontocerebeloso sin tocar el tronco encefálico.</td></tr>
+      <tr><td class="id">III</td><td>Llena la cisterna y toca el tronco sin desplazarlo.</td></tr>
+      <tr><td class="id">IV</td><td>Desplaza el tronco y los pares craneales.</td></tr>
     </tbody>
   </table></div>
-  <h3>House-Brackmann [7]</h3>
-  <p>De I (función facial normal) a VI (parálisis total). Un buen resultado es HB I–II.</p>
-  <h3>Audición AAO-HNS [8]</h3>
+
+  <h4>House-Brackmann: función del nervio facial [9]</h4>
   <div class="tabla"><table>
-    <thead><tr><th>Clase</th><th>Umbral (PTA)</th><th>Discriminación</th></tr></thead>
+    <thead><tr><th>Grado</th><th>Función facial</th></tr></thead>
     <tbody>
-      <tr><td class="id">A</td><td>≤ 30 dB</td><td>≥ 70%</td></tr>
-      <tr><td class="id">B</td><td>&gt; 30 y ≤ 50 dB</td><td>≥ 50%</td></tr>
-      <tr><td class="id">C</td><td>&gt; 50 dB</td><td>≥ 50%</td></tr>
-      <tr><td class="id">D</td><td>Cualquiera</td><td>&lt; 50%</td></tr>
+      <tr><td class="id">I</td><td>Normal.</td></tr>
+      <tr><td class="id">II</td><td>Disfunción leve: debilidad apenas visible; cierra el ojo por completo.</td></tr>
+      <tr><td class="id">III</td><td>Moderada: asimetría evidente; cierra el ojo por completo con esfuerzo.</td></tr>
+      <tr><td class="id">IV</td><td>Moderadamente grave: asimetría que desfigura; no cierra el ojo por completo.</td></tr>
+      <tr><td class="id">V</td><td>Grave: movimiento apenas perceptible.</td></tr>
+      <tr><td class="id">VI</td><td>Parálisis total.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="nota">Un buen resultado es House-Brackmann I–II.</p>
+
+  <h4>AAO-HNS: audición [10]</h4>
+  <div class="tabla"><table>
+    <thead><tr><th>Clase</th><th>Umbral auditivo</th><th>Discriminación de palabras</th></tr></thead>
+    <tbody>
+      <tr><td class="id">A</td><td>30 dB o menos</td><td>70% o más</td></tr>
+      <tr><td class="id">B</td><td>Más de 30 y hasta 50 dB</td><td>50% o más</td></tr>
+      <tr><td class="id">C</td><td>Más de 50 dB</td><td>50% o más</td></tr>
+      <tr><td class="id">D</td><td>Cualquiera</td><td>Menos de 50%</td></tr>
     </tbody>
   </table></div>
   <p class="nota">Audición útil = clases A y B.</p>
+
+  <!-- ---------- Glosario ---------- -->
+  <h3 id="glosario">Glosario</h3>
+  <dl class="glosario">
+    <dt>RS, TL, FM</dt><dd>Retrosigmoideo, translaberíntico y fosa media.</dd>
+    <dt>LCR</dt><dd>Líquido cefalorraquídeo. Una fístula de LCR es una fuga por la herida, la nariz o el oído.</dd>
+    <dt>Parálisis facial tardía</dt><dd>Empeoramiento de la función facial que aparece días después de la cirugía, cuando al terminar estaba mejor. Cada estudio la define un poco distinto (R4).</dd>
+    <dt>RR y OR</dt><dd>Riesgo relativo y razón de momios. Un RR de 4.84 significa un riesgo 4.84 veces mayor; un valor de 1 significa que no hay diferencia.</dd>
+    <dt>IC 95%</dt><dd>Intervalo de confianza. Si incluye el 1, la diferencia no es significativa.</dd>
+    <dt>Gráfica de bosque</dt><dd>La figura de un metaanálisis que muestra el resultado de cada estudio y el combinado.</dd>
+    <dt>Revisión sistemática</dt><dd>Estudio que busca, selecciona y resume todos los estudios sobre una pregunta siguiendo un método fijo.</dd>
+    <dt><i>NF2</i></dt><dd>Gen de la merlina; también el nombre de la neurofibromatosis tipo 2.</dd>
+  </dl>
 </section>
 
-<!-- ===================== REGISTRO DE CRIBADO ===================== -->
-<section id="registro">
-  <h2>Registro de cribado</h2>
-  <p id="resumen-registro"></p>
-  <input class="buscador" id="buscador" type="search" placeholder="Buscar por PMID, título o motivo…" aria-label="Buscar en el registro de cribado">
-  <div class="tabla">
-    <table class="apilable">
-      <thead><tr><th>PMID · año</th><th>Título</th><th>Decisión</th><th>Motivo</th></tr></thead>
-      <tbody id="tabla-registro"></tbody>
-    </table>
-  </div>
-</section>
-
-<!-- ===================== REFERENCIAS ===================== -->
-<section id="referencias">
+<!-- ============================ PESTAÑA: REFERENCIAS ============================
+     Formato Vancouver. Si agregas una referencia nueva, ponla al final de la
+     lista que corresponda para no mover los números que ya están citados. -->
+<section id="referencias" role="tabpanel" aria-label="Referencias">
   <h2>Referencias</h2>
-  <p class="nota">Las referencias 1–5 son las citadas en el póster.</p>
-  <ol class="refs" id="lista-referencias"></ol>
+
+  <h3>Citadas en el póster</h3>
+  <ol class="refs">
+    <li>Goldbrunner R, Weller M, Regis J, Lund-Johansen M, Stavrinou P, Reuss D, et al. EANO guideline on the diagnosis and treatment of vestibular schwannoma. Neuro Oncol. 2020;22(1):31-45. doi: <a href="https://doi.org/10.1093/neuonc/noz153">10.1093/neuonc/noz153</a></li>
+    <li>Petrilli AM, Fernández-Valle C. Role of Merlin/NF2 inactivation in tumor biology. Oncogene. 2016;35(5):537-48. doi: <a href="https://doi.org/10.1038/onc.2015.125">10.1038/onc.2015.125</a></li>
+    <li>Marinelli JP, Beeler CJ, Carlson ML, Caye-Thomasen P, Spear SA, Erbele ID. Global incidence of sporadic vestibular schwannoma: a systematic review. Otolaryngol Head Neck Surg. 2022;167(2):209-14. doi: <a href="https://doi.org/10.1177/01945998211042006">10.1177/01945998211042006</a></li>
+  </ol>
+
+  <h3>Citadas en la información complementaria</h3>
+  <ol class="refs" start="4">
+    <li>Matthies C, Samii M. Management of 1000 vestibular schwannomas (acoustic neuromas): clinical presentation. Neurosurgery. 1997;40(1):1-9. doi: <a href="https://doi.org/10.1097/00006123-199701000-00001">10.1097/00006123-199701000-00001</a></li>
+    <li>Dilwali S, Landegger LD, Soares VY, Deschler DG, Stankovic KM. Secreted factors from human vestibular schwannomas can cause cochlear damage. Sci Rep. 2015;5:18599. doi: <a href="https://doi.org/10.1038/srep18599">10.1038/srep18599</a></li>
+    <li>Page MJ, McKenzie JE, Bossuyt PM, Boutron I, Hoffmann TC, Mulrow CD, et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ. 2021;372:n71. doi: <a href="https://doi.org/10.1136/bmj.n71">10.1136/bmj.n71</a></li>
+    <li>Shea BJ, Reeves BC, Wells G, Thuku M, Hamel C, Moran J, et al. AMSTAR 2: a critical appraisal tool for systematic reviews that include randomised or non-randomised studies of healthcare interventions, or both. BMJ. 2017;358:j4008. doi: <a href="https://doi.org/10.1136/bmj.j4008">10.1136/bmj.j4008</a></li>
+    <li>Koos WT, Day JD, Matula C, Levy DI. Neurotopographic considerations in the microsurgical treatment of small acoustic neurinomas. J Neurosurg. 1998;88(3):506-12. doi: <a href="https://doi.org/10.3171/jns.1998.88.3.0506">10.3171/jns.1998.88.3.0506</a></li>
+    <li>House JW, Brackmann DE. Facial nerve grading system. Otolaryngol Head Neck Surg. 1985;93(2):146-7. doi: <a href="https://doi.org/10.1177/019459988509300202">10.1177/019459988509300202</a></li>
+    <li>Committee on Hearing and Equilibrium guidelines for the evaluation of hearing preservation in acoustic neuroma (vestibular schwannoma). Otolaryngol Head Neck Surg. 1995;113(3):179-80. doi: <a href="https://doi.org/10.1016/S0194-5998(95)70101-X">10.1016/S0194-5998(95)70101-X</a></li>
+  </ol>
+
+  <h3>Revisiones incluidas</h3>
+  <ul class="refs">
+    <li><b>R1.</b> Garcia-Torrico F, Mendieta CD, De Nigris Vasconcellos F, Salolin Vargas VP, Scalise M, Mamani-Julian K, et al. Evaluating the effectiveness and complications of the retrosigmoid, translabyrinthine and middle fossa approaches in vestibular schwannoma surgical management: a comprehensive systematic review and meta-analysis of 6,889 patients. Neurosurg Rev. 2025;48(1):229. doi: <a href="https://doi.org/10.1007/s10143-025-03237-2">10.1007/s10143-025-03237-2</a></li>
+    <li><b>R2.</b> Gibbon FL, Lindner RJ, Vial ADM, da Silva GG, Palavani LB, Semione G, et al. Translabyrinthine versus retrosigmoid approach for vestibular schwannoma: a systematic review and an updated meta-analysis. Otolaryngol Head Neck Surg. 2025;172(3):774-86. doi: <a href="https://doi.org/10.1002/ohn.1031">10.1002/ohn.1031</a></li>
+    <li><b>R3.</b> Zhang X, Wen H, Chen G. Incidence and risk factors of delayed facial paralysis after vestibular schwannoma resection: a systematic review and meta-analysis. World Neurosurg. 2025;197:123938. doi: <a href="https://doi.org/10.1016/j.wneu.2025.123938">10.1016/j.wneu.2025.123938</a></li>
+    <li><b>R4.</b> Huppert Steed A, Riordan K, Papuc M, Jukic A, Johnson KA, Pico A, et al. Incidence and prognosis of delayed facial nerve palsy after vestibular schwannoma resection: systematic review and meta-analysis. J Neurol Surg B Skull Base. 2026;87(2):123-30. doi: <a href="https://doi.org/10.1055/a-2587-6401">10.1055/a-2587-6401</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12971226/">Texto completo gratis</a></li>
+    <li><b>R5.</b> Deeb JMC, Dowie HJM, Ovenden C, Castle-Kirszbaum M, Chawla S, Schultz M, et al. The effect of a learning curve on outcomes of vestibular schwannoma surgery: a systematic review. Neurosurg Rev. 2026;49(1):342. doi: <a href="https://doi.org/10.1007/s10143-026-04256-3">10.1007/s10143-026-04256-3</a> · <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC13061782/">Texto completo gratis</a></li>
+  </ul>
 </section>
 
+<!-- ============================ PESTAÑA: HERRAMIENTAS ============================
+     Los logos y nombres se editan en contenido.js (HERRAMIENTAS). -->
+<section id="herramientas" role="tabpanel" aria-label="Herramientas">
+  <h2>Declaración de herramientas</h2>
+  <p class="declaracion">Para elaborar el póster y esta página usamos las siguientes páginas y programas. Las imágenes tomadas de otras fuentes llevan su crédito y su licencia.</p>
+  <div id="lista-herramientas" class="herramientas"></div>
+</section>
+
+<!-- ============================ PIE DE PÁGINA ============================ -->
 <footer>
-  Material suplementario del póster · UDA de Sistema Nervioso · Universidad de Guanajuato, Campus León.<br>
-  Última actualización: 20 de noviembre de 2026.
+  Material complementario del póster presentado en el mini congreso de la UDA de Sistema Nervioso · Universidad de Guanajuato, Campus León.<br>
+  Última actualización: 26 de noviembre de 2026.
 </footer>
 </main>
 
-<script src="datos.js"></script>
-<script>
-  // Genera las tablas a partir de datos.js. Normalmente no necesitas tocar esto.
-  const $ = id => document.getElementById(id);
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  const enlace = r => r.doi ? ` doi: <a href="https://doi.org/${esc(r.doi)}">${esc(r.doi)}</a>.`
-                      : r.url ? ` Disponible en: <a href="${esc(r.url)}">${esc(r.url)}</a>` : '';
-  const pubmed = r => r.pmid ? ` PMID: <a href="https://pubmed.ncbi.nlm.nih.gov/${esc(r.pmid)}/">${esc(r.pmid)}</a>.` : '';
+<!-- ============================ VISOR DE IMÁGENES (no tocar) ============================ -->
+<dialog id="visor" aria-label="Imagen en grande">
+  <div class="barra-visor"><button class="cerrar" type="button">Cerrar ✕</button></div>
+  <div class="contenido-visor">
+    <img src="" alt="">
+    <div class="pie-visor">
+      <b class="visor-titulo"></b>
+      <span class="visor-texto"></span>
+      <a class="visor-original" href="" target="_blank" rel="noopener">Abrir el archivo original</a>
+    </div>
+  </div>
+</dialog>
 
-  $('tabla-revisiones').innerHTML = REVISIONES.map(r =>
-    `<tr><td class="id">${esc(r.id)} · ${esc(r.revision)}</td><td data-label="Tema">${esc(r.tema)}</td><td data-label="Estudios / pacientes">${esc(r.estudios)}</td><td data-label="Hallazgo">${esc(r.hallazgo)}</td></tr>`).join('');
-  $('lista-revisiones').innerHTML = REVISIONES.map(r =>
-    `<li><b>${esc(r.id)}.</b> ${esc(r.referencia)}${enlace(r)}${pubmed(r)}</li>`).join('');
-  $('lista-referencias').innerHTML = REFERENCIAS.map(r =>
-    `<li>${esc(r.referencia)}${enlace(r)}${pubmed(r)}</li>`).join('');
-
-  function pintarRegistro(filtro = '') {
-    const f = filtro.trim().toLowerCase();
-    const filas = REGISTRO.filter(r => !f || [r.pmid, r.titulo, r.decision, r.motivo].join(' ').toLowerCase().includes(f));
-    $('tabla-registro').innerHTML = filas.map(r =>
-      `<tr><td class="id"><a href="https://pubmed.ncbi.nlm.nih.gov/${esc(r.pmid)}/">${esc(r.pmid)}</a> · ${esc(r.anio || '—')}</td><td data-label="Título">${esc(r.titulo)}</td><td data-label="Decisión">${esc(r.decision)}</td><td data-label="Motivo">${esc(r.motivo)}</td></tr>`).join('');
-  }
-  const cuenta = d => REGISTRO.filter(r => r.decision === d).length;
-  $('resumen-registro').textContent = `${REGISTRO.length} registros: ${cuenta('Incluida')} incluidos, ${cuenta('Excluida (texto completo)')} excluidos a texto completo, ${cuenta('Excluida (título/resumen)')} excluidos por título y resumen y ${cuenta('Eliminada')} eliminado antes del cribado.`;
-  pintarRegistro();
-  $('buscador').addEventListener('input', e => pintarRegistro(e.target.value));
-
-  $('copiar').addEventListener('click', () => {
-    navigator.clipboard.writeText($('cadena').textContent).then(() => { $('copiar').textContent = 'Copiada'; setTimeout(() => $('copiar').textContent = 'Copiar cadena', 1500); });
-  });
-</script>
+<!-- Primero las listas y después el funcionamiento -->
+<script src="contenido.js"></script>
+<script src="app.js"></script>
 </body>
 </html>

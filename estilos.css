@@ -1,0 +1,238 @@
+/* =====================================================================
+   ESTILOS.CSS — COLORES Y DISEÑO
+   ---------------------------------------------------------------------
+   Para cambiar los colores de toda la página, edita solo las variables
+   de :root (abajo). Son los mismos colores del póster:
+     --azul  translaberíntico (TL) y texto
+     --fm    fosa media (FM)
+     --rs    retrosigmoideo (RS) y detalles
+   El resto del archivo está ordenado por secciones con títulos.
+   ===================================================================== */
+
+:root {
+  --azul: #1B2A3A;
+  --fm: #08707A;
+  --rs: #0BA3B2;
+  --claro: #7FD6DE;
+  --tinte: #E7F6F7;
+  --suave: #F4F7F9;
+  --gris: #4A5568;
+  --linea: #D5DDE5;
+  --rojo: #B42318;
+  --ancho: 920px;          /* ancho máximo del contenido */
+}
+
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: Montserrat, Arial, sans-serif; color: var(--azul); line-height: 1.6; font-size: 16px; background: #fff; }
+a { color: var(--fm); }
+img { max-width: 100%; height: auto; display: block; }
+p { margin: 0 0 12px; }
+ul, ol { padding-left: 22px; }
+li { margin-bottom: 6px; }
+.contenedor { max-width: var(--ancho); margin: 0 auto; padding: 0 20px; }
+.nota { color: var(--gris); font-size: 14px; }
+.cita { color: var(--gris); font-size: 13px; font-weight: 600; white-space: nowrap; }
+h2 { font-size: 26px; font-weight: 800; margin: 0 0 16px; padding-bottom: 8px; border-bottom: 4px solid var(--rs); }
+h3 { font-size: 19px; font-weight: 700; margin: 32px 0 10px; }
+h4 { font-size: 16px; margin: 20px 0 8px; }
+
+
+/* ---------- Encabezado ---------- */
+header { background: var(--azul); color: #fff; padding: 34px 0 28px; }
+header .etiqueta { color: var(--claro); font-weight: 700; letter-spacing: 2px; font-size: 12px; text-transform: uppercase; margin: 0; }
+header h1 { margin: 10px 0; font-size: clamp(24px, 5vw, 36px); line-height: 1.15; font-weight: 800; }
+header .sub { color: var(--claro); font-weight: 600; margin: 0 0 14px; }
+header .autores { font-weight: 700; margin: 0; font-size: 15px; }
+header .afiliacion { color: #C9D3DE; font-size: 13px; margin: 6px 0 0; }
+
+
+/* ---------- Pestañas ---------- */
+#pestanas { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid var(--linea); }
+#pestanas .contenedor { display: flex; gap: 6px; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; scrollbar-width: none; }
+#pestanas .contenedor::-webkit-scrollbar { display: none; }
+[role=tab] { flex: none; text-decoration: none; font-size: 14px; font-weight: 600; color: var(--azul); background: var(--suave); padding: 8px 14px; border-radius: 999px; }
+[role=tab]:hover { background: var(--tinte); }
+[role=tab][aria-selected=true] { background: var(--azul); color: #fff; }
+[role=tabpanel] { padding: 32px 0 8px; scroll-margin-top: 64px; }
+/* Sin JavaScript se ven todas las secciones, una tras otra */
+body:not(.con-pestanas) [role=tabpanel] { display: block !important; border-bottom: 1px solid var(--linea); }
+
+
+/* ---------- Botones ---------- */
+.botones { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+.boton { display: inline-block; text-decoration: none; font-weight: 700; font-size: 14px; color: #fff; background: var(--fm); padding: 10px 16px; border-radius: 8px; }
+.boton:hover { background: var(--azul); }
+
+
+/* ---------- Pestaña Póster ---------- */
+.marco-poster { border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; background: var(--suave); }
+.pdf-incrustado { display: block; width: 100%; height: 80vh; min-height: 520px; border: 0; }
+.pdf-incrustado .nota { padding: 20px; }
+.poster-imagen, .vista-previa { cursor: zoom-in; margin: 0 auto; }
+.vista-previa { display: none; }
+@media (max-width: 760px) {
+  /* En celular se usa la vista previa si existe */
+  .con-vista-previa .pdf-incrustado { display: none; }
+  .con-vista-previa .vista-previa { display: block; }
+  .pdf-incrustado { height: 70vh; min-height: 420px; }
+}
+
+
+/* ---------- Galerías (Histología e Imagenología) ---------- */
+.galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin-top: 16px; }
+.tarjeta { margin: 0; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; background: #fff; }
+.miniatura { background: var(--suave); aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center; }
+.abrir-imagen { all: unset; cursor: zoom-in; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.abrir-imagen:focus-visible { outline: 3px solid var(--rs); outline-offset: -3px; }
+.abrir-imagen img { width: 100%; height: 100%; object-fit: contain; }
+.abrir-pdf { display: flex; flex-direction: column; align-items: center; gap: 8px; text-decoration: none; font-weight: 700; color: var(--fm); }
+.tarjeta figcaption { padding: 12px 14px 14px; font-size: 14px; display: grid; gap: 4px; }
+.tarjeta figcaption b { font-size: 15px; }
+.credito { color: var(--gris); font-size: 12px; }
+.vacio { background: var(--suave); border: 2px dashed var(--linea); border-radius: 10px; padding: 28px; text-align: center; color: var(--gris); }
+.faltante { background: #FEF3F2; color: var(--rojo); border: 1px solid #FECDCA; border-radius: 8px; padding: 12px; font-size: 13px; margin: 8px; overflow-wrap: anywhere; }
+.faltante small { display: block; color: var(--gris); margin-top: 4px; }
+
+
+/* ---------- Visor de imágenes en grande ---------- */
+#visor { border: 0; padding: 0; max-width: min(96vw, 1200px); width: 100%; background: transparent; }
+#visor::backdrop { background: rgba(10, 18, 26, 0.88); }
+#visor .contenido-visor { background: #fff; border-radius: 10px; overflow: hidden; }
+#visor img { margin: 0 auto; max-height: 78vh; width: auto; }
+#visor .pie-visor { padding: 12px 16px; font-size: 14px; display: grid; gap: 4px; }
+#visor .barra-visor { display: flex; justify-content: flex-end; margin-bottom: 8px; }
+#visor .cerrar { font: inherit; font-weight: 700; color: #fff; background: transparent; border: 2px solid #fff; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+
+
+/* ---------- Información complementaria ---------- */
+.mensaje { background: var(--tinte); border-left: 6px solid var(--rs); padding: 16px 20px; font-weight: 700; font-style: italic; font-size: 19px; border-radius: 0 10px 10px 0; }
+.indice { background: var(--suave); border-radius: 10px; padding: 12px 18px; font-size: 14px; }
+.indice ol { margin: 6px 0 0; }
+.indice li { margin-bottom: 2px; }
+
+.cifras { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin: 18px 0; }
+.cifra { border: 1px solid var(--linea); border-top: 5px solid var(--rs); border-radius: 10px; padding: 14px 16px; }
+.cifra b { display: block; font-size: 26px; font-weight: 800; line-height: 1.15; margin-bottom: 6px; }
+.cifra span { display: block; font-size: 14px; }
+.cifra small { display: block; color: var(--gris); margin-top: 6px; }
+
+.recuadro { background: var(--suave); border-radius: 10px; padding: 16px 20px; margin: 20px 0; }
+.recuadro h4 { margin-top: 0; }
+.recuadro ul { margin: 0; }
+
+figure.figura { margin: 20px 0; }
+figure.figura img { max-width: 420px; width: 100%; margin: 0 auto; }
+figcaption { font-size: 13px; color: var(--gris); margin-top: 8px; }
+
+/* Barras de síntomas */
+.barra { display: grid; grid-template-columns: 220px 1fr 48px; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 14px; }
+.barra .riel { background: var(--suave); border-radius: 6px; height: 18px; overflow: hidden; }
+.barra .relleno { background: var(--rs); height: 100%; }
+.barra b { text-align: right; }
+
+/* Tarjetas de los tres abordajes */
+.abordajes { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.abordaje { border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; }
+.abordaje h4 { margin: 0; padding: 8px 14px; color: #fff; font-size: 17px; }
+.abordaje.tl h4 { background: var(--azul); }
+.abordaje.fm h4 { background: var(--fm); }
+.abordaje.rs h4 { background: var(--rs); color: var(--azul); }
+.abordaje dl { margin: 0; padding: 10px 14px 12px; font-size: 14px; }
+.abordaje dt { font-weight: 700; margin-top: 6px; }
+.abordaje dd { margin: 0; }
+
+/* ¿Cómo se elige? */
+.elegir { display: grid; gap: 8px; max-width: 620px; margin: 12px 0; }
+.elegir div { border: 2px solid var(--linea); border-radius: 10px; padding: 10px 14px; font-size: 15px; }
+.elegir .pregunta { background: var(--tinte); border-color: var(--claro); font-weight: 700; }
+.elegir .resp { margin-left: 28px; }
+.elegir .resp b { padding: 1px 8px; border-radius: 6px; color: #fff; }
+.elegir .tl b { background: var(--azul); }
+.elegir .fm b { background: var(--fm); }
+.elegir .rs b { background: var(--rs); color: var(--azul); }
+
+/* Tablas */
+.tabla { width: 100%; overflow-x: auto; border: 1px solid var(--linea); border-radius: 10px; margin: 12px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th { background: var(--azul); color: #fff; text-align: left; padding: 10px 12px; font-weight: 700; }
+td { padding: 9px 12px; border-top: 1px solid var(--linea); vertical-align: top; }
+td.id { font-weight: 700; white-space: nowrap; }
+
+/* Mapa de resultados */
+.leyenda { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; margin: 8px 0; }
+.leyenda span::before { content: ""; display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: -2px; margin-right: 6px; }
+.leyenda .l-igual::before { background: #E3E9EE; }
+.leyenda .l-tl::before { background: var(--azul); }
+.leyenda .l-rs::before { background: var(--rs); }
+.leyenda .l-nd::before { border: 2px dashed #B8C2CC; }
+table.mapa { table-layout: fixed; }
+table.mapa th:first-child { width: 22%; }
+table.mapa td { padding: 6px; }
+table.mapa td:first-child { font-weight: 700; padding: 12px; }
+.celda { border-radius: 8px; padding: 8px 10px; font-weight: 700; }
+.celda small { display: block; font-weight: 400; font-size: 12.5px; margin-top: 2px; }
+.igual { background: #E3E9EE; }
+.c-tl { background: var(--azul); color: #fff; }
+.c-rs { background: var(--rs); color: var(--azul); }
+.nd { border: 2px dashed #B8C2CC; color: var(--gris); font-weight: 600; }
+
+/* Diagrama PRISMA */
+.prisma { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.columna h4 { margin: 0 0 8px; font-size: 15px; }
+.paso, .sale { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; border-radius: 10px; padding: 8px 12px; margin-bottom: 6px; font-size: 14px; }
+.paso { border: 2px solid var(--linea); }
+.paso strong { font-size: 20px; }
+.sale { margin-left: 22px; background: var(--suave); color: var(--gris); font-size: 13px; }
+.sale strong { font-size: 15px; }
+.paso.final { background: var(--azul); color: #fff; border-color: var(--azul); }
+.total { margin-top: 10px; background: var(--tinte); border-left: 6px solid var(--rs); padding: 10px 14px; font-weight: 700; border-radius: 0 10px 10px 0; }
+
+/* Glosario */
+dl.glosario { display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; }
+dl.glosario dt { font-weight: 700; }
+dl.glosario dd { margin: 0; }
+
+
+/* ---------- Referencias ---------- */
+ol.refs li, ul.refs li { overflow-wrap: anywhere; font-size: 14px; margin-bottom: 8px; }
+ul.refs { list-style: none; padding: 0; }
+
+
+/* ---------- Herramientas ---------- */
+.declaracion { background: var(--tinte); border-left: 6px solid var(--rs); padding: 14px 18px; border-radius: 0 10px 10px 0; }
+.herramientas { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 16px; }
+.herramienta { display: flex; gap: 12px; align-items: center; border: 1px solid var(--linea); border-radius: 10px; padding: 12px 14px; text-decoration: none; color: var(--azul); }
+a.herramienta:hover { border-color: var(--rs); background: var(--suave); }
+.herramienta .logo { flex: none; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; }
+.herramienta .logo img { max-width: 52px; max-height: 52px; object-fit: contain; }
+.herramienta .inicial { width: 52px; height: 52px; border-radius: 10px; background: var(--suave); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 22px; color: var(--gris); }
+.herramienta .texto { display: grid; }
+.herramienta small { color: var(--gris); font-size: 13px; }
+
+
+/* ---------- Pie de página ---------- */
+footer { margin-top: 44px; padding: 22px 0 40px; border-top: 4px solid var(--azul); color: var(--gris); font-size: 13px; }
+
+
+/* ---------- Celular ---------- */
+@media (max-width: 640px) {
+  .prisma { grid-template-columns: 1fr; }
+  .barra { grid-template-columns: 1fr 44px; }
+  .barra .riel { grid-column: 1 / -1; grid-row: 2; }
+  dl.glosario { grid-template-columns: 1fr; gap: 0; }
+  dl.glosario dd { margin-bottom: 8px; }
+  .cifra b { font-size: 28px; }
+  /* Las tablas marcadas como "apilable" se leen como tarjetas */
+  table.apilable, table.apilable tbody, table.apilable tr, table.apilable td { display: block; width: 100%; }
+  table.apilable thead { display: none; }
+  table.apilable tr { padding: 10px 12px; border-top: 1px solid var(--linea); }
+  table.apilable tr:first-child { border-top: 0; }
+  table.apilable td { border: 0; padding: 2px 0; }
+  table.apilable td[data-label]::before { content: attr(data-label); display: block; font-size: 12px; font-weight: 700; color: var(--gris); margin-top: 6px; }
+  table.mapa td:first-child { padding: 0; font-size: 16px; }
+}
+
+@media print { #pestanas { display: none; } [role=tabpanel] { display: block !important; } }

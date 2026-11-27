@@ -1,0 +1,2 @@
+Aqui va el poster (PDF, PNG o SVG).
+Despues escribe su nombre en contenido.js, en POSTER.

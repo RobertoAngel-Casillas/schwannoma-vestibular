@@ -1,0 +1,2 @@
+Aqui van las imagenes de histologia (PNG, SVG o PDF).
+Despues agregalas en contenido.js, en HISTOLOGIA.
